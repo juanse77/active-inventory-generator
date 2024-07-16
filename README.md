@@ -9,7 +9,8 @@ It is recommended to create a virtual environment for installing the script depe
 
 This will create a virtual environment in the '.env' subfolder. Next, the environment must be activated by executing the command:
 
-> .\.env\Script\activate # en Windows
+> .\\.env\Script\activate # en Windows
+
 > source ./.env/bin/activate # en Linux
 
 Next, you must install the script dependencies, executing:
