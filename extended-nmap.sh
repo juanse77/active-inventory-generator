@@ -17,7 +17,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-python3 active-inventory-generator.py $XML_FILE $OUTPUT_FILE
+python active-inventory-generator.py $XML_FILE $OUTPUT_FILE
 
 if [ $? -ne 0 ]; then
     echo "Error in generating the Excel file"
