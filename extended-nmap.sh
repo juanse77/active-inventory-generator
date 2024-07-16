@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -lt 2 ]; then
-    echo "Uso: $0 <parámetros nmap> <archivo de salida>"
+    echo "Use: $0 <nmap parameters> <output-excel-file-name>"
     exit 1
 fi
 
@@ -13,7 +13,7 @@ XML_FILE=$(mktemp /tmp/nmap_result.XXXXXX.xml)
 nmap $NMAP_PARAMS -oX $XML_FILE
 
 if [ $? -ne 0 ]; then
-    echo "Error al ejecutar nmap"
+    echo "Error when running nmap"
     exit 1
 fi
 
