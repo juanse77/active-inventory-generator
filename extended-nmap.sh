@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -lt 2 ]; then
-    echo "Use: $0 <nmap parameters> <output-excel-file-name>"
+    echo "Use: $0 <nmap-parameters> <output-excel-file-name>"
     exit 1
 fi
 
