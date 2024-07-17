@@ -1,22 +1,61 @@
 import sys
 import xml.etree.ElementTree as ET
 import pandas as pd
+from pandas import ExcelWriter
+from openpyxl import load_workbook
+from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 
-def generate_excel(df):
-    writer = pd.ExcelWriter('pandas_test.xlsx', engine='xlsxwriter')
+def generate_excel(df, excel_file_name):
 
-    df.to_excel(writer, sheet_name='Sheet1', index=False)
+    with ExcelWriter(excel_file_name, engine='openpyxl') as writer:
+        df.to_excel(writer, sheet_name='Actives Inventory', index=False)
 
-    workbook  = writer.book
-    worksheet = writer.sheets['Sheet1']
+    wb = load_workbook(excel_file_name)
+    ws = wb['Actives Inventory']
 
-    text_wrap_format = workbook.add_format({'text_wrap': True})
+    header_font = Font(name='Arial', size=12, bold=True, color='FFFFFF')
+    header_fill = PatternFill(start_color='4F81BD', end_color='4F81BD', fill_type='solid')
+    cell_font = Font(name='Arial', size=12)
+    cell_alignment = Alignment(wrap_text=True, vertical='center', horizontal='left')
 
-    # Add the format to column 2 (zero-indexed) and adjust the width.
-    worksheet.set_column(1, 1, 15, text_wrap_format)
+    thin_border = Border(
+        left=Side(style='thin'),
+        right=Side(style='thin'),
+        top=Side(style='thin'),
+        bottom=Side(style='thin')
+    )
 
-    # Close the Pandas Excel writer and output the Excel file.
-    writer.close()
+    for cell in ws[1]:
+        cell.font = header_font
+        cell.fill = header_fill
+        cell.alignment = Alignment(vertical='center', horizontal='center')
+        cell.border = thin_border
+
+    for row in ws.iter_rows(min_row=2, max_row=ws.max_row, min_col=1, max_col=ws.max_column):
+        for i, cell in enumerate(row):
+            if i == 0:
+                cell.alignment = Alignment(vertical='center', horizontal='center')
+            else:
+                cell.alignment = cell_alignment
+
+            cell.fill = PatternFill(start_color='eeeeee', end_color='eeeeee', fill_type='solid')
+            cell.font = cell_font
+            cell.border = thin_border
+
+    for row in ws.iter_rows():
+        for cell in row:
+            if cell.value and isinstance(cell.value, str) and '\n' in cell.value:
+                cell.alignment = cell_alignment
+                max_line_count = cell.value.count('\n') + 1
+                ws.row_dimensions[cell.row].height = max(15 * max_line_count, ws.row_dimensions[cell.row].height or 15)
+
+    widths = [25, 50, 120]
+
+    for i, col in enumerate(ws.columns):
+        column = col[0].column_letter
+        ws.column_dimensions[column].width = widths[i]
+    
+    wb.save(excel_file_name)
 
 def replace_substring(test_str, s1, s2):
     result = ""
@@ -129,7 +168,7 @@ def main(xml_file, xlsx_file_name):
 
         ips.append(host_info['ip'])
         for port, service in host_info['ports']:
-            puertos_servicios.append(f"  - Port: {port}, Service: {service}git")    
+            puertos_servicios.append(f"  - Port: {port}, Service: {service}")    
     
         puertos_servicios  = "\n".join(puertos_servicios)
 
@@ -158,7 +197,7 @@ def main(xml_file, xlsx_file_name):
     if not xlsx_file_name.endswith('.xlsx'):
         xlsx_file_name = f"{xlsx_file_name}.xlsx"
 
-    df.to_excel(xlsx_file_name, sheet_name="Actives Inventory", index=False)
+    generate_excel(df, xlsx_file_name)
 
     print("An excel file has been generated with the results\n")
 
