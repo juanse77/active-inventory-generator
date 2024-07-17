@@ -123,7 +123,7 @@ def main(xml_file, xlsx_file_name):
     if not xlsx_file_name.endWith('.xlsx'):
         xlsx_file_name = f"{xlsx_file_name}.xlsx"
 
-    df.to_excel(xlsx_file_name, sheet_name="Actives Inventary", index=False)
+    df.to_excel(xlsx_file_name, sheet_name="Actives Inventory", index=False)
 
     print("An excel file has been generated with the results\n")
 
