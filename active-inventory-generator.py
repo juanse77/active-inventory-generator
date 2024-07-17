@@ -14,7 +14,10 @@ def get_info_vuln(node, port="unkown", service="unknown"):
 
         if cves is not None:
             for cve in cves.findall('elem'):
-                vuln_cve.append(cve.text.split(':')[-1])
+                if cve.text.split(':')[0] == "CVE":
+                    vuln_cve.append(cve.text.split(':')[-1])
+                else:
+                    vuln_cve.append(cve.text)
 
         info = {
             "title": elem.find(".//elem[@key='title']").text,
@@ -120,7 +123,7 @@ def main(xml_file, xlsx_file_name):
 
     df = pd.DataFrame(datos)
     
-    if not xlsx_file_name.endWith('.xlsx'):
+    if not xlsx_file_name.endswith('.xlsx'):
         xlsx_file_name = f"{xlsx_file_name}.xlsx"
 
     df.to_excel(xlsx_file_name, sheet_name="Actives Inventory", index=False)
