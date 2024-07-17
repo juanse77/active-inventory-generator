@@ -25,7 +25,7 @@ Running the application is as simple as launching the python script by calling t
 
 > python active-inventory-generator.py scanned-network.xml excel-file-name.xlsx
 
-You can also run the application through the 'extended-nmap.sh' script. This script will execute the nmap command and then execute the filter script for the xml document generated in the previous execution. To do this you must give execution permissions to the script, and pass it the parameters that you want nmap to take and then the name of the excel file that will be generated if all goes well.
+You can also run the application through the 'extended-nmap.sh' script. This script will execute the nmap command and then the filter script for the xml document generated in the same execution. To do this you must give execution permissions to the script, and pass it the parameters that you want Nmap to take like input, followed by the name of the excel file that will be generated if all goes well.
 
 > sudo chmod +x extended-nmap.sh
 
