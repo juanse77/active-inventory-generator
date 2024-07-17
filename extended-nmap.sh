@@ -8,7 +8,7 @@ fi
 NMAP_PARAMS=$1
 OUTPUT_FILE=$2
 
-XML_FILE=$(mktemp /tmp/nmap_result.XXXXXX.xml)
+XML_FILE=$(mktemp nmap_result.XXXXXX.xml)
 
 nmap $NMAP_PARAMS -oX $XML_FILE
 

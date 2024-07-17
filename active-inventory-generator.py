@@ -14,7 +14,7 @@ def get_info_vuln(node, port="unkown", service="unknown"):
 
         if cves is not None:
             for cve in cves.findall('elem'):
-                vuln_cve.append(cve.text)
+                vuln_cve.append(cve.text.split(':')[-1])
 
         info = {
             "title": elem.find(".//elem[@key='title']").text,
@@ -81,9 +81,9 @@ def main(xml_file, xlsx_file_name):
         for vuln in host_info['vulnerabilities']:
             print(f"  - Port: {vuln['port']}, Service: {vuln['service']}")
             print(f"    Name: {vuln['name']}")
-            print(f"    {', '.join(vuln['cve'])}")
+            print(f"    CVEs: {', '.join(vuln['cve'])}")
             print(f"    Disclosure date: {vuln['disclosure_date']}")
-            print(f"    References: {', '.join(vuln['references'])}")
+            print(f"    References: \n\t{'\n\t'.join(vuln['references'])}")
             print(f"    Description: {vuln['description']}")
             
         print("\n")
@@ -103,7 +103,7 @@ def main(xml_file, xlsx_file_name):
         for vuln in host_info['vulnerabilities']:
             v = f"  - Port: {vuln['port']}, Service: {vuln['service']}\n"
             v += f"    Name: {vuln['name']}\n"
-            v += f"    {', '.join(vuln['cve'])}\n"
+            v += f"    CVEs: {', '.join(vuln['cve'])}\n"
             #v += f"    Disclosure Date: {vuln['disclosure_date']}\n"
             v += f"    References: \n\t{'\n\t'.join(vuln['references'])}\n"
             #v += f"    Description: {vuln['description']}\n"
@@ -129,7 +129,7 @@ def main(xml_file, xlsx_file_name):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Use: python active-inventory-generator.py <xml-file> <xlsx-file-nam>")
+        print("Use: python active-inventory-generator.py <xml-file> <xlsx-file-name>")
         sys.exit(1)
 
     xml_file = sys.argv[1]
