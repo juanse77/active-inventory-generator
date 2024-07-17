@@ -2,6 +2,22 @@ import sys
 import xml.etree.ElementTree as ET
 import pandas as pd
 
+def generate_excel(df):
+    writer = pd.ExcelWriter('pandas_test.xlsx', engine='xlsxwriter')
+
+    df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+    workbook  = writer.book
+    worksheet = writer.sheets['Sheet1']
+
+    text_wrap_format = workbook.add_format({'text_wrap': True})
+
+    # Add the format to column 2 (zero-indexed) and adjust the width.
+    worksheet.set_column(1, 1, 15, text_wrap_format)
+
+    # Close the Pandas Excel writer and output the Excel file.
+    writer.close()
+
 def replace_substring(test_str, s1, s2):
     result = ""
     i = 0
@@ -95,11 +111,12 @@ def main(xml_file, xlsx_file_name):
         print("Vulnerabilities:")
         for vuln in host_info['vulnerabilities']:
             description = replace_substring(vuln['description'], "\n", "\n\t")
+            formated_references = '\n\t'.join(vuln['references'])
             print(f"  - Port: {vuln['port']}, Service: {vuln['service']}")
             print(f"    Name: {vuln['name']}")
             print(f"    CVEs: {', '.join(vuln['cve'])}")
             print(f"    Disclosure date: {vuln['disclosure_date']}")
-            print(f"    References: \n\t{'\n\t'.join(vuln['references'])}")
+            print(f"    References: \n\t{formated_references}")
             print(f"    Description:\n\t{description}")
             
         print("\n")
@@ -118,11 +135,12 @@ def main(xml_file, xlsx_file_name):
 
         for vuln in host_info['vulnerabilities']:
             description = replace_substring(vuln['description'], "\n", "\n\t")
+            formated_references = '\n\t'.join(vuln['references'])
             v = f"  - Port: {vuln['port']}, Service: {vuln['service']}\n"
             v += f"    Name: {vuln['name']}\n"
             v += f"    CVEs: {', '.join(vuln['cve'])}\n"
             #v += f"    Disclosure Date: {vuln['disclosure_date']}\n"
-            v += f"    References: \n\t{'\n\t'.join(vuln['references'])}\n"
+            v += f"    References: \n\t{formated_references}\n"
             #v += f"    Description:\n\t{description}\n"
 
             vuls.append(v)
