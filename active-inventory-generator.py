@@ -2,6 +2,18 @@ import sys
 import xml.etree.ElementTree as ET
 import pandas as pd
 
+def replace_substring(test_str, s1, s2):
+    result = ""
+    i = 0
+    while i < len(test_str):
+        if test_str[i:i+len(s1)] == s1:
+            result += s2
+            i += len(s1)
+        else:
+            result += test_str[i]
+            i += 1
+    return result
+
 def get_info_vuln(node, port="unkown", service="unknown"):
     vuln_cve = []
     vulnerabilities = []
@@ -82,12 +94,13 @@ def main(xml_file, xlsx_file_name):
             print(f"  - Port: {port}, Service: {service}")
         print("Vulnerabilities:")
         for vuln in host_info['vulnerabilities']:
+            description = replace_substring(vuln['description'], "\n", "\n\t")
             print(f"  - Port: {vuln['port']}, Service: {vuln['service']}")
             print(f"    Name: {vuln['name']}")
             print(f"    CVEs: {', '.join(vuln['cve'])}")
             print(f"    Disclosure date: {vuln['disclosure_date']}")
             print(f"    References: \n\t{'\n\t'.join(vuln['references'])}")
-            print(f"    Description: {vuln['description']}")
+            print(f"    Description:\n\t{description}")
             
         print("\n")
 
@@ -104,12 +117,13 @@ def main(xml_file, xlsx_file_name):
         puertos_servicios  = "\n".join(puertos_servicios)
 
         for vuln in host_info['vulnerabilities']:
+            description = replace_substring(vuln['description'], "\n", "\n\t")
             v = f"  - Port: {vuln['port']}, Service: {vuln['service']}\n"
             v += f"    Name: {vuln['name']}\n"
             v += f"    CVEs: {', '.join(vuln['cve'])}\n"
             #v += f"    Disclosure Date: {vuln['disclosure_date']}\n"
             v += f"    References: \n\t{'\n\t'.join(vuln['references'])}\n"
-            #v += f"    Description: {vuln['description']}\n"
+            #v += f"    Description:\n\t{description}\n"
 
             vuls.append(v)
 
