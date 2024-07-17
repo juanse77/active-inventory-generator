@@ -75,7 +75,7 @@ def get_info_vuln(node, port="unkown", service="unknown"):
 
     elem = node.find("table")
 
-    if elem:
+    if elem is not None:
 
         cves = elem.find(".//table[@key='ids']") if elem is not None else None
 
