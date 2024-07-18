@@ -5,17 +5,25 @@ Script designed to generate a report from the nmap execution results. Specifical
 ### Instalation:
 It is recommended to create a virtual environment for installing the script dependencies. A quick way to create a virtual environment can be to use the 'virtualenv' command. Example of use:
 
-> python -m virtualenv .env
+```bash
+python -m virtualenv .env
+```
 
 This will create a virtual environment in the '.env' subfolder. Next, the environment must be activated by executing the command:
 
-> .\\.env\Script\activate # in Windows
+```powershell
+.\.env\Script\activate # in Windows
+```
 
-> source ./.env/bin/activate # in Linux
+```bash
+source ./.env/bin/activate # in Linux
+```
 
 Next, you must install the script dependencies, executing:
 
-> python -m pip install -r requirements.txt
+```bash
+python -m pip install -r requirements.txt
+```
 
 With this initial configuration you are now ready to run the application.
 
