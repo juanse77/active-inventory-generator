@@ -23,15 +23,18 @@ With this initial configuration you are now ready to run the application.
 
 Running the application is as simple as launching the python script by calling the interpreter and passing it an XML file with the results of an nmap scan. For example, as follows:
 
-> python active-inventory-generator.py scanned-network.xml excel-file-name.xlsx
+```bash
+python active-inventory-generator.py scanned-network.xml excel-file-name.xlsx
+```
 
 ### In version 1:
 
 You can also run the application through the 'extended-nmap.sh' script. This script will execute the nmap command and then the filter script for the xml document generated in the same execution. To do this you must give execution permissions to the script, and pass it the parameters that you want Nmap to take like input, followed by the name of the excel file that will be generated if all goes well.
 
-> sudo chmod +x extended-nmap.sh
-
-> ./extended-nmap.sh "-Pn -sCV --script vuln --top-ports -iL stored-ips" excel-file-name.xlsx
+```bash
+sudo chmod +x extended-nmap.sh
+./extended-nmap.sh "-Pn -sCV --script vuln --top-ports -iL stored-ips" excel-file-name.xlsx
+```
 
 Once the execution is complete, an excel file should have been generated in the same folder from where the script was executed.
 
@@ -43,7 +46,9 @@ A shell bash script has been modified for sending alerts during the squential ex
 
 For it to work, is necesary to have a valid file with three environment vars: EMAIL_ADDRESS, EMAIL_PASSWORD, and WEB_HOOK. EMAIL_ADDRESS and EMAIL_PASSWORD, have to define a valid Gmail email and its application password of sixteen characters. The WEB_HOOK variable is an URL for the channel of Slack to be publicated. For the script to be excuted you need to pass the paramenters of the nmap that will be used, the name of the excel file that will be created, and the email or the list of emails you want to send the generated excel file. For example:
 
-> ./extended-nmap.sh "-Pn -sCV --script vuln --top-ports -iL stored-ips" excel-file-name.xlsx recipient1@domain.com,recipient2@domain.com,recipient3@domain.com
+```bash
+./extended-nmap.sh "-Pn -sCV --script vuln --top-ports -iL stored-ips" excel-file-name.xlsx recipient1@domain.com,recipient2@domain.com,recipient3@domain.com
+```
 
 The environment variables will be read from a file called 'environment_vars.env'. An example of that file could be like this:
 
