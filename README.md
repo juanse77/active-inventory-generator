@@ -21,7 +21,7 @@ Next, you must install the script dependencies, executing:
 python -m pip install -r requirements.txt
 ```
 
-For complete installation, you need to edit the ~/.bash_profile to add the application folder to the PATH. Insert this line to the file:
+For complete installation, you need to edit the ~/.bashrc in shell bash or ~/.zshrc to add the application folder to the PATH. Insert this line to the file:
 
 ```bash
 export PATH=$PATH:/opt/active-inventory-generator
@@ -30,7 +30,9 @@ export PATH=$PATH:/opt/active-inventory-generator
 You must run this command to activate the change if you just added the line. This will not be necessary on subsequent system reboots.
 
 ```bash
-source ~/.bash_profile
+source ~/.bashrc # in shell bash
+or
+source ~/.zshrc # in shell zsh
 ```
 
 With this initial configuration you are now ready to run the application.
@@ -42,14 +44,18 @@ Running the application is as simple as launching the python script by calling t
 ```bash
 python active-inventory-generator.py scanned-network.xml excel-file-name.xlsx
 ```
-
-### In version 1:
+## Running with integrated Nmap:
 
 You can also run the application through the 'extended-nmap.sh' script. This script will execute the nmap command and then the filter script for the xml document generated in the same execution. To do this you must give execution permissions to the script, and pass it the parameters that you want Nmap to take like input, followed by the name of the excel file that will be generated if all goes well.
 
 ```bash
 sudo chmod +x extended-nmap.sh
+
+# If you are in the application folder and/or the application folder is not in the PATH
 ./extended-nmap.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx
+
+# If the application folder is in the PATH
+extended-nmap.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx
 ```
 
 Once the execution is complete, an excel file should have been generated in the same folder from where the script was executed.
