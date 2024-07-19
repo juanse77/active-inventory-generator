@@ -75,9 +75,13 @@ For it to work, is necesary to have a valid file with three environment vars: EM
 The environment variables will be read from a file called 'environment_vars.env'. An example of that file could be like this:
 
 ```bash
-export EMAIL_ADDRESS="user-company@gmail.com"
-export EMAIL_PASSWORD="xndermtiocnduyrm"
-export WEB_HOOK="https://hooks.slack.com/services/XXXXXXX/XXXXX/XXXX" 
+EMAIL_ADDRESS="usuario@dominio.com"
+EMAIL_PASSWORD="emirhsalownernjk"
+WEB_HOOK="https://hooks.slack.com/services/XXXXXX/XXXXXXXXXXXX" 
+
+export EMAIL_ADDRESS
+export EMAIL_PASSWORD
+export WEB_HOOK
 ```
 
 
