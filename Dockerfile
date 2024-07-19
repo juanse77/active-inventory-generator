@@ -13,7 +13,7 @@ COPY extended-nmap.sh /opt/active-inventory-generator/
 
 COPY active-inventory-generator.py /opt/active-inventory-generator/
 COPY send-report.py /opt/active-inventory-generator/
-COPY xml_to_html.py /opt/active-inventory-generator/
+COPY xml-to-html.py /opt/active-inventory-generator/
 
 COPY nmap.xsl /opt/active-inventory-generator/
 COPY requirements.txt /opt/active-inventory-generator/

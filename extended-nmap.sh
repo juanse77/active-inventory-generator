@@ -57,7 +57,7 @@ fi
 
 # rm $XML_FILE # Activate when the script has been proved, if you wish
 
-python xml_to_html.py "$XML_FILE" "$XSL_FILE" "$HTML_FILE"
+python /opt/active-inventory-generator/xml-to-html.py "$XML_FILE" "$XSL_FILE" "$HTML_FILE"
 
 time_mark=$(date +"%Y%m%d%H%M%S")
 ZIP_NAME="report-nmap-scan-$time_mark.zip"
