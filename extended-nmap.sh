@@ -15,7 +15,8 @@ if [ $# -lt 3 ]; then
     exit 1
 fi
 
-source ./environment_vars.env
+source /opt/active-inventory-generator/environment_vars.env
+source /opt/active-inventory-generator/.env/bin/activate
 
 NMAP_PARAMS=$1
 OUTPUT_FILE=$2
@@ -55,5 +56,9 @@ ZIP_NAME="report-nmap-scan-$time_mark.zip"
 
 zip $ZIP_NAME $OUTPUT_FILE $XML_FILE
 
+echo "\n"
+
 send_notice "New Active Inventory report created"
-python send-report.py --attachment $ZIP_NAME $EMAIL_ADDRESS $EMAIL_PASSWORD $EMAIL_ALERT $SUBJECT $message
+python send-report.py --attachment "$ZIP_NAME" "$EMAIL_ADDRESS" "$EMAIL_PASSWORD" "$EMAIL_ALERT" "$SUBJECT" "$message"
+
+deactivate
