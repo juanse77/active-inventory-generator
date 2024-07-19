@@ -21,10 +21,16 @@ source /opt/active-inventory-generator/.env/bin/activate
 NMAP_PARAMS=$1
 OUTPUT_FILE=$2
 EMAIL_ALERT=$3
+
+XSL_FILE="nmap.xsl"
+
 SUBJECT="Nmap scan"
 NUC=$(hostname)
 
-XML_FILE=$(mktemp nmap_result.XXXXXX.xml)
+time_mark=$(date +"%Y%m%d%H%M%S")
+
+XML_FILE="nmap_result-$time_mark.xml"
+HTML_FILE="nmap_result-$time_mark.html"
 
 start_time=$(date +%s)
 start_time_formatted=$(date +"%H:%M")
@@ -41,7 +47,7 @@ fi
 
 send_notice "Nmap successfully finished"
 
-python /opt/active-inventory-generator/active-inventory-generator.py $XML_FILE "$OUTPUT_FILE"
+python /opt/active-inventory-generator/active-inventory-generator.py "$XML_FILE" "$OUTPUT_FILE"
 
 if [ $? -ne 0 ]; then
     send_notice "Error in generating the Active Inventory report"
@@ -51,10 +57,12 @@ fi
 
 # rm $XML_FILE # Activate when the script has been proved, if you wish
 
+python xml_to_html.py "$XML_FILE" "$XSL_FILE" "$HTML_FILE"
+
 time_mark=$(date +"%Y%m%d%H%M%S")
 ZIP_NAME="report-nmap-scan-$time_mark.zip"
 
-zip "$ZIP_NAME" "$OUTPUT_FILE" "$XML_FILE"
+zip "$ZIP_NAME" "$OUTPUT_FILE" "$XML_FILE" "$HTML_FILE"
 
 send_notice "New Active Inventory report created"
 python /opt/active-inventory-generator/send-report.py --attachment "$ZIP_NAME" "$EMAIL_ADDRESS" "$EMAIL_PASSWORD" "$EMAIL_ALERT" "$SUBJECT" "$message"
