@@ -60,7 +60,7 @@ extended-nmap.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-f
 
 Once the execution is complete, an excel file should have been generated in the same folder from where the script was executed.
 
-# New utilities added in version 2:
+## New utilities added in version 2:
 
 A shell bash script has been modified for sending alerts during the squential executing of nmap and the active inventory generator steps. During the progress of the execution messages to Slack and emails addresses will be sent.
 
