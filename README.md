@@ -64,7 +64,7 @@ Once the execution is complete, an excel file should have been generated in the 
 
 A shell bash script has been modified for sending alerts during the squential executing of nmap and the active inventory generator steps. During the progress of the execution messages to Slack and emails addresses will be sent.
 
-## How to use:
+### How to use:
 
 For it to work, is necesary to have a valid file with three environment vars: EMAIL_ADDRESS, EMAIL_PASSWORD, and WEB_HOOK. EMAIL_ADDRESS and EMAIL_PASSWORD, have to define a valid Gmail email and its application password of sixteen characters. The WEB_HOOK variable is an URL for the channel of Slack to be publicated. For the script to be excuted you need to pass the paramenters of the nmap that will be used, the name of the excel file that will be created, and the email or the list of emails you want to send the generated excel file. For example:
 
