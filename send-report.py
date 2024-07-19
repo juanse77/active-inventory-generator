@@ -41,10 +41,10 @@ def send_email(from_email, app_password, to_email, subject, body, attachment_pat
         server.sendmail(from_email, to_email.split(","), text)
         server.quit()
 
-        print(f"Email sent to {to_email}")
+        print(f"\nEmail sent to {to_email}")
 
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"\nError: {e}")
 
 
 if __name__ == "__main__":

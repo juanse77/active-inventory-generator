@@ -56,8 +56,6 @@ ZIP_NAME="report-nmap-scan-$time_mark.zip"
 
 zip $ZIP_NAME $OUTPUT_FILE $XML_FILE
 
-echo "\n"
-
 send_notice "New Active Inventory report created"
 python send-report.py --attachment "$ZIP_NAME" "$EMAIL_ADDRESS" "$EMAIL_PASSWORD" "$EMAIL_ALERT" "$SUBJECT" "$message"
 

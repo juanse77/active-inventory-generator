@@ -3,17 +3,13 @@ Script designed to generate a report from the nmap execution results. Specifical
 
 ## How to use:
 ### Instalation:
-It is recommended to create a virtual environment for installing the script dependencies. A quick way to create a virtual environment can be to use the 'virtualenv' command. Example of use:
+Firstly, clone the repository in the /opt folder, last you have to change to /opt/active-inventory-generator to continue the instalation. Before that, it is recommended to create a virtual environment for installing the script dependencies. A quick way to create a virtual environment can be to use the 'virtualenv' command. Example of use:
 
 ```bash
 python -m virtualenv .env
 ```
 
 This will create a virtual environment in the '.env' subfolder. Next, the environment must be activated by executing the command:
-
-```powershell
-.\.env\Script\activate # in Windows
-```
 
 ```bash
 source ./.env/bin/activate # in Linux
@@ -23,6 +19,18 @@ Next, you must install the script dependencies, executing:
 
 ```bash
 python -m pip install -r requirements.txt
+```
+
+For complete installation, you need to edit the ~/.bash_profile to add the application folder to the PATH. Insert this line to the file:
+
+```bash
+export PATH=$PATH:/opt/active-inventory-generator
+```
+
+You must run this command to activate the change if you just added the line. This will not be necessary on subsequent system reboots.
+
+```bash
+source ~/.bash_profile
 ```
 
 With this initial configuration you are now ready to run the application.
