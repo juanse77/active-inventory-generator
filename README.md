@@ -63,7 +63,7 @@ A shell bash script has been modified for sending alerts during the squential ex
 For it to work, is necesary to have a valid file with three environment vars: EMAIL_ADDRESS, EMAIL_PASSWORD, and WEB_HOOK. EMAIL_ADDRESS and EMAIL_PASSWORD, have to define a valid Gmail email and its application password of sixteen characters. The WEB_HOOK variable is an URL for the channel of Slack to be publicated. For the script to be excuted you need to pass the paramenters of the nmap that will be used, the name of the excel file that will be created, and the email or the list of emails you want to send the generated excel file. For example:
 
 ```bash
-./extended-nmap.sh "-Pn -sCV --script vuln --top-ports -iL stored-ips" excel-file-name.xlsx recipient1@domain.com,recipient2@domain.com,recipient3@domain.com
+./extended-nmap.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx recipient1@domain.com,recipient2@domain.com,recipient3@domain.com
 ```
 
 The environment variables will be read from a file called 'environment_vars.env'. An example of that file could be like this:
