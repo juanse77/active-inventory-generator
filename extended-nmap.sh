@@ -22,7 +22,7 @@ NMAP_PARAMS=$1
 OUTPUT_FILE=$2
 EMAIL_ALERT=$3
 
-XSL_FILE="nmap.xsl"
+XSL_FILE="/opt/active-inventory-generator/nmap.xsl"
 
 SUBJECT="Nmap scan"
 NUC=$(hostname)
