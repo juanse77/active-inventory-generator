@@ -49,7 +49,7 @@ You can also run the application through the 'extended-nmap.sh' script. This scr
 
 ```bash
 sudo chmod +x extended-nmap.sh
-./extended-nmap.sh "-Pn -sCV --script vuln --top-ports -iL stored-ips" excel-file-name.xlsx
+./extended-nmap.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx
 ```
 
 Once the execution is complete, an excel file should have been generated in the same folder from where the script was executed.
