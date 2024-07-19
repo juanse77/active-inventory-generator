@@ -161,16 +161,17 @@ def main(xml_file, xlsx_file_name):
         print("\n")
 
     ips = []
+    ports_services = []
     vulns = []
     for host_info in hosts_info:
-        puertos_servicios = []
+        ports_servs = []
         vuls = []
 
         ips.append(host_info['ip'])
         for port, service in host_info['ports']:
-            puertos_servicios.append(f"  - Port: {port}, Service: {service}")    
+            ports_servs.append(f"  - Port: {port}, Service: {service}")    
     
-        puertos_servicios  = "\n".join(puertos_servicios)
+        ports_services.append("\n".join(ports_services))
 
         for vuln in host_info['vulnerabilities']:
             description = replace_substring(vuln['description'], "\n", "\n\t")
@@ -188,7 +189,7 @@ def main(xml_file, xlsx_file_name):
 
     datos = {
         "IP Direction": ips,
-        "Ports and Services": puertos_servicios,
+        "Ports and Services": ports_services,
         "Vulnerabilities": vulns
     }
 

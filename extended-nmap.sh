@@ -35,17 +35,17 @@ nmap $NMAP_PARAMS -oX $XML_FILE --stylesheet="https://svn.nmap.org/nmap/docs/nma
 
 if [ $? -ne 0 ]; then    
     send_notice "Nmap running error"
-    python send-report.py $EMAIL_ADDRESS $EMAIL_PASSWORD $EMAIL_ALERT $SUBJECT $message 
+    python /opt/active-inventory-generator/send-report.py "$EMAIL_ADDRESS" "$EMAIL_PASSWORD" "$EMAIL_ALERT" "$SUBJECT" "$message" 
     exit 1
 fi
 
 send_notice "Nmap successfully finished"
 
-python active-inventory-generator.py $XML_FILE $OUTPUT_FILE
+python /opt/active-inventory-generator/active-inventory-generator.py $XML_FILE "$OUTPUT_FILE"
 
 if [ $? -ne 0 ]; then
     send_notice "Error in generating the Active Inventory report"
-    python send-report.py $EMAIL_ADDRESS $EMAIL_PASSWORD $EMAIL_ALERT $SUBJECT $message
+    python /opt/active-inventory-generator/send-report.py "$EMAIL_ADDRESS" "$EMAIL_PASSWORD" "$EMAIL_ALERT" "$SUBJECT" "$message"
     exit 1
 fi
 
@@ -54,9 +54,9 @@ fi
 time_mark=$(date +"%Y%m%d%H%M%S")
 ZIP_NAME="report-nmap-scan-$time_mark.zip"
 
-zip $ZIP_NAME $OUTPUT_FILE $XML_FILE
+zip "$ZIP_NAME" "$OUTPUT_FILE" "$XML_FILE"
 
 send_notice "New Active Inventory report created"
-python send-report.py --attachment "$ZIP_NAME" "$EMAIL_ADDRESS" "$EMAIL_PASSWORD" "$EMAIL_ALERT" "$SUBJECT" "$message"
+python /opt/active-inventory-generator/send-report.py --attachment "$ZIP_NAME" "$EMAIL_ADDRESS" "$EMAIL_PASSWORD" "$EMAIL_ALERT" "$SUBJECT" "$message"
 
 deactivate
