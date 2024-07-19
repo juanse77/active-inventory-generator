@@ -30,7 +30,7 @@ start_time_formatted=$(date +"%H:%M")
 
 send_notice "New nmap scan has been launched"
 
-nmap $NMAP_PARAMS -oX $XML_FILE
+nmap $NMAP_PARAMS -oX $XML_FILE --stylesheet="https://svn.nmap.org/nmap/docs/nmap.xsl"
 
 if [ $? -ne 0 ]; then    
     send_notice "Nmap running error"
@@ -50,5 +50,10 @@ fi
 
 # rm $XML_FILE # Activate when the script has been proved, if you wish
 
+time_mark=$(date +"%Y%m%d%H%M%S")
+ZIP_NAME="report-nmap-scan-$time_mark.zip"
+
+zip $ZIP_NAME $OUTPUT_FILE $XML_FILE
+
 send_notice "New Active Inventory report created"
-python send-report.py --attachment $OUTPUT_FILE $EMAIL_ADDRESS $EMAIL_PASSWORD $EMAIL_ALERT $SUBJECT $message
+python send-report.py --attachment $ZIP_NAME $EMAIL_ADDRESS $EMAIL_PASSWORD $EMAIL_ALERT $SUBJECT $message
