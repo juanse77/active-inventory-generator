@@ -171,7 +171,7 @@ def main(xml_file, xlsx_file_name):
         for port, service in host_info['ports']:
             ports_servs.append(f"  - Port: {port}, Service: {service}")    
     
-        ports_services.append("\n".join(ports_services))
+        ports_services.append("\n".join(ports_servs))
 
         for vuln in host_info['vulnerabilities']:
             description = replace_substring(vuln['description'], "\n", "\n\t")
