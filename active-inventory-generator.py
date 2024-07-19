@@ -112,14 +112,15 @@ def extract_host_info(host):
     vulnerabilities = []
 
     for port in host.find('ports').findall('port'):
-        port_id = port.attrib['portid']
-        service_node = port.find('service')
-        service = service_node.attrib.get('name', 'unknown') if service_node is not None else 'unknown'
-        ports.append((port_id, service))
+        if "open" == port.find('state').attrib.get('state'):            
+            port_id = port.attrib['portid']
+            service_node = port.find('service')
+            service = service_node.attrib.get('name', 'unknown') if service_node is not None else 'unknown'
+            ports.append((port_id, service))
 
-        for script in port.findall('script'):
-            if 'vulnerable' in script.attrib['output'].lower():
-                vulnerabilities.extend(get_info_vuln(script, port_id, service))
+            for script in port.findall('script'):
+                if 'vulnerable' in script.attrib['output'].lower():
+                    vulnerabilities.extend(get_info_vuln(script, port_id, service))
                 
     hostscript = host.find('hostscript')
     if hostscript is not None:
