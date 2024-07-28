@@ -24,7 +24,7 @@
 
         /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: auto;
             overflow: hidden;
             padding: 0 20px;
@@ -37,6 +37,7 @@
             padding-top: 30px;
             min-height: 70px;
             border-bottom: #77aaff 3px solid;
+            max-width: 800px;
         }
 
         header a {
@@ -141,15 +142,16 @@
     </style>
 </head>
 <body>
-    <main class="container">
-        <header>
-            <div class="container">
-                <div id="branding">
-                    <h1>Active Inventory Generator</h1>
-                </div>
+    
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Active Inventory Generator</h1>
             </div>
-        </header>
-        
+        </div>
+    </header>
+
+    <main class="container">
         <p>Script designed to generate a report from the nmap execution results. Specifically, the information from the output in nmap XML format is filtered to dump the vulnerabilities found in the scanned network into an Excel file.</p>
         
         <h2>How to use:</h2>
