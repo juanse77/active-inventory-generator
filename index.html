@@ -203,10 +203,33 @@ WEB_HOOK="https://hooks.slack.com/services/XXXXXX/XXXXXXXXXXXX"
 export EMAIL_ADDRESS
 export EMAIL_PASSWORD
 export WEB_HOOK</code></pre>
+
+        <h3>Latest Release:</h3>
+        <p><a id="latest-release-link" href="#" target="_blank" sytle="text-decoration: none; font-weight: bold;">
+            Check out the latest release</a>
+        </p>
+
     </main>
     
     <footer>
         <p>Active Inventory Generator &copy; 2024</p>
     </footer>
+
+    <script>
+        async function getLatestRelease() {
+            try {
+                const response = await fetch('https://api.github.com/repos/juanse77/active-inventory-generator/releases/latest');
+                const data = await response.json();
+                const latestReleaseLink = document.getElementById('latest-release-link');
+                latestReleaseLink.href = data.html_url;
+                latestReleaseLink.textContent = `Check out the latest release (${data.name})`;
+            } catch (error) {
+                console.error('Error fetching the latest release:', error);
+            }
+        }
+
+        window.onload = getLatestRelease;
+    </script>
+
 </body>
 </html>
