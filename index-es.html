@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Inventory Generator</title>
+</head>
+<body>
+    <h1>Active Inventory Generator:</h1>
+    <p>Script diseñado para generar un informe a partir de los resultados de la ejecución de nmap. Específicamente, se filtra la información de la salida en formato XML de nmap para volcar las vulnerabilidades encontradas en la red escaneada en un archivo Excel.</p>
+    
+    <h2>Cómo usar:</h2>
+    <h3>Instalación:</h3>
+    <p>Primero, clona el repositorio en la carpeta /opt, luego debes cambiar a /opt/active-inventory-generator para continuar con la instalación. Antes de eso, se recomienda crear un entorno virtual para instalar las dependencias del script. Una forma rápida de crear un entorno virtual es usar el comando 'virtualenv'. Ejemplo de uso:</p>
+    <pre><code>python -m virtualenv .env</code></pre>
+    <p>Esto creará un entorno virtual en la subcarpeta '.env'. A continuación, el entorno debe ser activado ejecutando el comando:</p>
+    <pre><code>source ./.env/bin/activate # en Linux</code></pre>
+    <p>Luego, debes instalar las dependencias del script, ejecutando:</p>
+    <pre><code>python -m pip install -r requirements.txt</code></pre>
+    <p>Para completar la instalación, necesitas editar el ~/.bashrc en shell bash o ~/.zshrc para agregar la carpeta de la aplicación al PATH. Inserta esta línea en el archivo:</p>
+    <pre><code>export PATH=$PATH:/opt/active-inventory-generator</code></pre>
+    <p>Debes ejecutar este comando para activar el cambio si acabas de agregar la línea. Esto no será necesario en reinicios posteriores del sistema.</p>
+    <pre><code>source ~/.bashrc # en shell bash
+    o
+    source ~/.zshrc # en shell zsh</code></pre>
+    <p>Con esta configuración inicial, ahora estás listo para ejecutar la aplicación.</p>
+    
+    <h3>Ejecutando la aplicación:</h3>
+    <p>Ejecutar la aplicación es tan simple como lanzar el script de python llamando al intérprete y pasándole un archivo XML con los resultados de un escaneo de nmap. Por ejemplo, de la siguiente manera:</p>
+    <pre><code>python active-inventory-generator.py scanned-network.xml excel-file-name.xlsx</code></pre>
+    
+    <h2>Ejecutando con Nmap integrado:</h2>
+    <p>También puedes ejecutar la aplicación a través del script 'extended-nmap.sh'. Este script ejecutará el comando nmap y luego el script de filtrado para el documento XML generado, y le pasará los parámetros que deseas que tome Nmap como entrada, seguido del nombre del archivo excel que se generará si todo va bien.</p>
+    <pre><code>sudo chmod +x extended-nmap.sh
+
+# Si estás en la carpeta de la aplicación y/o la carpeta de la aplicación no está en el PATH
+./extended-nmap.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx
+
+# Si la carpeta de la aplicación está en el PATH
+extended-nmap.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx</code></pre>
+    <p>Una vez completada la ejecución, se debería haber generado un archivo excel en la misma carpeta desde donde se ejecutó el script.</p>
+    
+    <h2>Nuevas utilidades añadidas en la versión 2:</h2>
+    <p>Se ha modificado un script de shell bash para enviar alertas durante la ejecución secuencial de nmap y los pasos del generador de inventario activo. Durante el progreso de la ejecución se enviarán mensajes a Slack y direcciones de correo electrónico.</p>
+    
+    <h3>Cómo usar:</h3>
+    <p>Para que funcione, es necesario tener un archivo válido con tres variables de entorno: EMAIL_ADDRESS, EMAIL_PASSWORD y WEB_HOOK. EMAIL_ADDRESS y EMAIL_PASSWORD deben definir un correo electrónico de Gmail válido y su contraseña de aplicación de dieciséis caracteres. La variable WEB_HOOK es una URL para el canal de Slack donde se publicarán los mensajes. Para que el script se ejecute, necesitas pasar los parámetros del nmap que se usarán, el nombre del archivo excel que se creará y el correo electrónico o la lista de correos electrónicos a los que deseas enviar el archivo excel generado. Por ejemplo:</p>
+    <pre><code>./extended-nmap.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx recipient1@domain.com,recipient2@domain.com,recipient3@domain.com</code></pre>
+    <p>Las variables de entorno se leerán de un archivo llamado 'environment_vars.env'. Un ejemplo de ese archivo podría ser así:</p>
+    <pre><code>EMAIL_ADDRESS="usuario@dominio.com"
+EMAIL_PASSWORD="emirhsalownernjk"
+WEB_HOOK="https://hooks.slack.com/services/XXXXXX/XXXXXXXXXXXX"
+
+export EMAIL_ADDRESS
+export EMAIL_PASSWORD
+export WEB_HOOK</code></pre>
+</body>
+</html>
+
