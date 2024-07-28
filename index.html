@@ -111,6 +111,14 @@
             padding: 20px;
             margin-top: 20px;
         }
+        
+        pre {
+            display: block;
+            margin: 15px 0;
+            padding: 10px 5px;
+            background-color: gray;
+            border: 1px solid black;
+        }
 
         /* Media Queries */
         @media(max-width: 768px) {
@@ -133,16 +141,15 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div id="branding">
-                <h1>Active Inventory Generator</h1>
-            </div>
-        </div>
-    </header>
-
     <main class="container">
-        <h1>Active Inventory Generator:</h1>
+        <header>
+            <div class="container">
+                <div id="branding">
+                    <h1>Active Inventory Generator</h1>
+                </div>
+            </div>
+        </header>
+        
         <p>Script designed to generate a report from the nmap execution results. Specifically, the information from the output in nmap XML format is filtered to dump the vulnerabilities found in the scanned network into an Excel file.</p>
         
         <h2>How to use:</h2>
