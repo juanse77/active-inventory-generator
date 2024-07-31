@@ -84,4 +84,19 @@ export EMAIL_PASSWORD
 export WEB_HOOK
 ```
 
+## Deployment with Docker:
 
+In the project folder there is a script called extended-nmap-docker.sh to run the application using a docker container. For which, you must first give it execution permissions.
+
+```bash
+sudo chmod +x extended-nmap-docker.sh
+```
+
+For this script to work, you must have the Docker application installed. When the script is executed, an image will be created, using the Dockerfile configuration file from the same project folder, and then a volatile container will be launched that will be responsible for executing the application.
+
+The script accepts the same parameters as the extended-nmap.sh script, and if the PATH has been set correctly, it will work the same as the original script.
+
+```bash
+# If the application folder is in the PATH
+extended-nmap-docker.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx
+```
