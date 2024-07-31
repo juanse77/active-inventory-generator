@@ -98,5 +98,5 @@ The script accepts the same parameters as the extended-nmap.sh script, and if th
 
 ```bash
 # If the application folder is in the PATH
-extended-nmap-docker.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx
+extended-nmap-docker.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx recipient1@domain.com,recipient2@domain.com,recipient3@domain.com
 ```
