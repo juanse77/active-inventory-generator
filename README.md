@@ -3,7 +3,13 @@ Script designed to generate a report from the nmap execution results. Specifical
 
 ## How to use:
 ### Instalation:
-Firstly, clone the repository in the /opt folder, then you have to change to /opt/active-inventory-generator to continue the instalation. Before that, it is recommended to create a virtual environment for installing the script dependencies. A quick way to create a virtual environment can be to use the 'virtualenv' command. Example of use:
+Firstly, clone the repository in the /opt folder and change the owner of the downloaded folder. Then, you have to change to /opt/active-inventory-generator to continue the instalation. Before that, it is recommended to create a virtual environment for installing the script dependencies. A quick way to create a virtual environment can be to use the 'virtualenv' command. Example of use:
+
+```bash
+cd /opt
+sudo git clone https://github.com/juanse77/active-inventory-generator
+sudo chown [user]:[group] -R active-inventory-generator
+```
 
 ```bash
 python -m virtualenv .env

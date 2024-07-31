@@ -193,7 +193,11 @@
         
         <h2>How to use:</h2>
         <h3>Installation:</h3>
-        <p>Firstly, clone the repository in the /opt folder, then you have to change to /opt/active-inventory-generator to continue the installation. Before that, it is recommended to create a virtual environment for installing the script dependencies. A quick way to create a virtual environment can be to use the 'virtualenv' command. Example of use:</p>
+        <p>Firstly, clone the repository in the /opt folder and change the owner of the downloaded folder. Then, you have to change to /opt/active-inventory-generator to continue the installation. Before that, it is recommended to create a virtual environment for installing the script dependencies. A quick way to create a virtual environment can be to use the 'virtualenv' command. Example of use:</p>
+        <pre><code>cd /opt
+sudo git clone https://github.com/juanse77/active-inventory-generator
+sudo chown [user]:[group] -R active-inventory-generator
+</code></pre>        
         <pre><code>python -m virtualenv .env</code></pre>
         <p>This will create a virtual environment in the '.env' subfolder. Next, the environment must be activated by executing the command:</p>
         <pre><code>source ./.env/bin/activate # in Linux</code></pre>
