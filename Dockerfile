@@ -1,7 +1,6 @@
-FROM ubuntu:latest
+FROM ubuntu:24.04
 
-RUN apt-get update && apt-get upgrade -y
-
+RUN apt-get update
 RUN apt-get install -y nmap bash curl zip dos2unix python3 python3-pip virtualenv
 
 RUN mkdir -p /opt/active-inventory-generator
