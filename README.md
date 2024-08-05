@@ -106,3 +106,16 @@ The script accepts the same parameters as the extended-nmap.sh script, and if th
 # If the application folder is in the PATH
 extended-nmap-docker.sh "-Pn -sCV --script vuln --top-ports 100 -iL stored-ips" excel-file-name.xlsx recipient1@domain.com,recipient2@domain.com,recipient3@domain.com
 ```
+
+## License:
+
+This project is licensed under the MIT License.
+
+## Contact:
+
+For any questions or support, please contact [juanse77-ccdani@hotmail.com](mailto:juanse77-ccdani@hotmail.com).
+
+## Donate:
+If you want to contribute to our initiative, please [support us with a coffee](https://buymeacoffee.com/active.inventory.nmap) ;D
+
+&copy; 2024 Active Inventory Generator for Nmap
